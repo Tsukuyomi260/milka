@@ -3,6 +3,7 @@ import { MessageCircle } from 'lucide-react';
 import Layout from '../components/Layout';
 import Avatar from '../components/Avatar';
 import { getArtisanAvatarUrl } from '../lib/images';
+import { useI18n } from '../i18n';
 
 const DEMANDES = [
   { id: '1', artisan: 'Jean Kouassi', metier: 'Mécanicien', initiales: 'JK', date: 'Aujourd\'hui', statut: 'En attente' },
@@ -11,9 +12,11 @@ const DEMANDES = [
 ];
 
 export default function Demandes() {
+  const { t } = useI18n();
+
   return (
     <Layout>
-      <h2 className="section-title">Mes demandes</h2>
+      <h2 className="section-title">{t('requests.title')}</h2>
       {DEMANDES.length > 0 ? (
         DEMANDES.map((d) => (
           <Link key={d.id} to={`/artisan/${d.id}`} className="list-card">
@@ -30,8 +33,8 @@ export default function Demandes() {
       ) : (
         <div className="empty-state glass-card" style={{ padding: 48 }}>
           <MessageCircle size={64} strokeWidth={1.5} />
-          <p><strong>Aucune demande</strong></p>
-          <p>Vos prises de contact et rendez-vous apparaîtront ici.</p>
+          <p><strong>{t('requests.emptyTitle')}</strong></p>
+          <p>{t('requests.emptyText')}</p>
         </div>
       )}
     </Layout>

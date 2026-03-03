@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Avatar from '../components/Avatar';
 import NearbyMapCard from '../components/NearbyMapCard';
 import { getArtisanAvatarUrl } from '../lib/images';
+import { useI18n } from '../i18n';
 
 const EN_VEDETTE = [
   { id: '1', initiales: 'JK', online: true },
@@ -21,10 +22,12 @@ const POPULAIRES = [
 ];
 
 export default function Accueil() {
+  const { t } = useI18n();
+
   return (
     <Layout showFilterBar showFab fabIcon={Plus} onFabClick={() => {}}>
       <section className="section-block">
-        <h2 className="section-title">Vos artisans</h2>
+        <h2 className="section-title">{t('home.yourArtisans')}</h2>
         <div className="scroll-row">
           {EN_VEDETTE.map((a) => (
             <Link key={a.id} to={`/artisan/${a.id}`} className={`avatar-ring ${a.online ? 'online' : ''}`}>
@@ -35,12 +38,12 @@ export default function Accueil() {
       </section>
 
       <section className="section-block">
-        <h2 className="section-title">Artisans près de vous</h2>
+        <h2 className="section-title">{t('home.nearbyArtisans')}</h2>
         <NearbyMapCard />
       </section>
 
       <section className="section-block">
-        <h2 className="section-title">Populaires</h2>
+        <h2 className="section-title">{t('home.popular')}</h2>
         <div className="scroll-row">
           {POPULAIRES.map((a) => (
             <Link key={a.id} to={`/artisan/${a.id}`} className="artisan-card">

@@ -13,6 +13,7 @@ import Inscription from './pages/Inscription';
 import Parametres from './pages/Parametres';
 import Favoris from './pages/Favoris';
 import Notifications from './pages/Notifications';
+import { UiProvider } from './context/UIContext';
 import './index.css';
 
 const routes = [
@@ -43,9 +44,11 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AnimatedRoutes />
-      <CookieConsent />
-    </BrowserRouter>
+    <UiProvider>
+      <BrowserRouter>
+        <AnimatedRoutes />
+        <CookieConsent />
+      </BrowserRouter>
+    </UiProvider>
   );
 }

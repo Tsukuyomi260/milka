@@ -1,25 +1,34 @@
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, MapPin, Heart, CircleUser, Bell, Search } from 'lucide-react';
+import { useI18n } from '../i18n';
 
 const DOCK_ITEMS = [
-  { path: '/', icon: Home, label: 'Accueil' },
-  { path: '/carte', icon: MapPin, label: 'Carte' },
-  { path: '/favoris', icon: Heart, label: 'Favoris' },
-  { path: '/profil', icon: CircleUser, label: 'Profil' },
+  { path: '/', icon: Home, labelKey: 'nav.home' },
+  { path: '/carte', icon: MapPin, labelKey: 'nav.map' },
+  { path: '/favoris', icon: Heart, labelKey: 'nav.favorites' },
+  { path: '/profil', icon: CircleUser, labelKey: 'nav.profile' },
 ];
 
 function getDockActiveIndex(pathname) {
   if (pathname === '/') return 0;
   if (pathname.startsWith('/carte')) return 1;
   if (pathname.startsWith('/favoris')) return 2;
-  if (pathname.startsWith('/profil')) return 3;
+  if (
+    pathname.startsWith('/profil') ||
+    pathname.startsWith('/parametres') ||
+    pathname.startsWith('/confidentialite') ||
+    pathname.startsWith('/cgu')
+  ) {
+    return 3;
+  }
   return 0;
 }
 
 export default function Layout({ children, showFilterBar = false, showFab = false, fabIcon: FabIcon, onFabClick }) {
   const location = useLocation();
   const activeIndex = getDockActiveIndex(location.pathname);
+  const { t } = useI18n();
 
   return (
     <div className="app-layout">
@@ -69,8 +78,18 @@ export default function Layout({ children, showFilterBar = false, showFab = fals
               style={{ '--dock-active-index': activeIndex }}
               aria-hidden="true"
             />
-            {DOCK_ITEMS.map(({ path, icon: Icon, label }) => {
-              const isActive = path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
+            {DOCK_ITEMS.map(({ path, icon: Icon, labelKey }) => {
+              let isActive;
+              if (path === '/') {
+                isActive = location.pathname === '/';
+              } else if (path === '/profil') {
+                isActive = ['/profil', '/parametres', '/confidentialite', '/cgu'].some((p) =>
+                  location.pathname.startsWith(p),
+                );
+              } else {
+                isActive = location.pathname.startsWith(path);
+              }
+              const label = t(labelKey);
               return (
                 <Link
                   key={path}

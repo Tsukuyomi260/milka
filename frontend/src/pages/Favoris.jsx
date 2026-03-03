@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react';
 import Layout from '../components/Layout';
 import Avatar from '../components/Avatar';
 import { getArtisanAvatarUrl } from '../lib/images';
+import { useI18n } from '../i18n';
 
 const FAVORIS = [
   { id: '1', name: 'Jean Kouassi', metier: 'Mécanicien', note: 4.8, initiales: 'JK' },
@@ -10,9 +11,11 @@ const FAVORIS = [
 ];
 
 export default function Favoris() {
+  const { t } = useI18n();
+
   return (
     <Layout>
-      <h2 className="section-title">Favoris</h2>
+      <h2 className="section-title">{t('favorites.title')}</h2>
       {FAVORIS.length > 0 ? (
         FAVORIS.map((a) => (
           <Link key={a.id} to={`/artisan/${a.id}`} className="list-card">
@@ -29,9 +32,11 @@ export default function Favoris() {
       ) : (
         <div className="empty-state glass-card" style={{ padding: 48 }}>
           <Heart size={64} strokeWidth={1.5} />
-          <p><strong>Aucun favori</strong></p>
-          <p>Enregistrez vos artisans préférés pour y accéder rapidement.</p>
-          <Link to="/" className="btn-primary" style={{ marginTop: 16, display: 'inline-block' }}>Découvrir</Link>
+          <p><strong>{t('favorites.emptyTitle')}</strong></p>
+          <p>{t('favorites.emptyText')}</p>
+          <Link to="/" className="btn-primary" style={{ marginTop: 16, display: 'inline-block' }}>
+            {t('favorites.discover')}
+          </Link>
         </div>
       )}
     </Layout>

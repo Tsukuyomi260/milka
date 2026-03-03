@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 import './index.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const root = document.getElementById('root')
 if (!root) {

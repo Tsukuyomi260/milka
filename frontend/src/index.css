@@ -32,6 +32,23 @@
   --safe-bottom: env(safe-area-inset-bottom, 0);
 }
 
+[data-theme='dark'] {
+  --bg-page: #020617;
+  --bg-page-alt: #020617;
+  --glass: rgba(15, 23, 42, 0.9);
+  --glass-border: rgba(148, 163, 184, 0.35);
+  --glass-strong: rgba(15, 23, 42, 0.96);
+  --dock-glass: rgba(255, 255, 255, 0.9);
+
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.7);
+  --shadow-dock: 0 -4px 28px rgba(0, 0, 0, 0.85);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -194,6 +211,12 @@ input, select, textarea {
   z-index: 200;
 }
 
+[data-theme='dark'] .dock {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.6);
+}
+
 .dock-items {
   flex: 1;
   display: flex;
@@ -244,6 +267,18 @@ input, select, textarea {
 
 .dock-item.active {
   color: #fff;
+}
+
+[data-theme='dark'] .dock-item {
+  color: rgba(15, 23, 42, 0.58);
+}
+
+[data-theme='dark'] .dock-item:hover {
+  color: rgba(15, 23, 42, 0.9);
+}
+
+[data-theme='dark'] .dock-item.active {
+  color: #0f172a;
 }
 
 .dock-item__icon {
@@ -981,6 +1016,32 @@ input, select, textarea {
 .settings-item-icon { color: var(--text-muted); flex-shrink: 0; }
 .settings-item-label { font-weight: 500; font-size: 0.95rem; }
 .settings-item-desc { font-size: 0.8rem; color: var(--text-muted); margin: 2px 0 0 0; }
+
+.settings-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.settings-toggle {
+  min-width: 64px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.settings-toggle--active {
+  background: var(--milka-red);
+  color: #fff;
+  transform: translateY(-1px);
+}
 
 /* Empty state */
 .empty-state {

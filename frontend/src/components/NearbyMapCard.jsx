@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import Avatar from './Avatar';
 import { getArtisanAvatarUrl } from '../lib/images';
+import { useI18n } from '../i18n';
 
 const METIER_EMOJI = {
   Mécanicien: '🔧',
@@ -32,11 +33,13 @@ const ONLINE_COUNT = 12;
 const USER_POSITION = { left: 22, top: 72 };
 
 export default function NearbyMapCard() {
+  const { t } = useI18n();
+
   return (
     <div className="nearby-map-card">
       <div className="nearby-map-card__live-badge">
         <span className="nearby-map-card__live-dot" aria-hidden="true" />
-        <span>{ONLINE_COUNT} artisans en ligne</span>
+        <span>{t('home.nearby.liveBadge', { count: ONLINE_COUNT })}</span>
       </div>
 
       <div className="nearby-map-card__map">
@@ -98,10 +101,12 @@ export default function NearbyMapCard() {
       </div>
 
       <div className="nearby-map-card__cta">
-        <span className="nearby-map-card__count">{ONLINE_COUNT} artisans à proximité</span>
+        <span className="nearby-map-card__count">
+          {t('home.nearby.count', { count: ONLINE_COUNT })}
+        </span>
         <Link to="/carte" className="nearby-map-card__btn">
           <MapPin size={18} strokeWidth={2} />
-          Voir la carte
+          {t('home.nearby.viewMap')}
         </Link>
       </div>
     </div>
